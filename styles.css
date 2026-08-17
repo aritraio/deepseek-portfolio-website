@@ -1,0 +1,665 @@
+/* ============================================================
+   Aritra Saha — Portfolio
+   Design language: Apple (DESIGN.md)
+   - Single accent: Action Blue #0066cc. No second brand color.
+   - No decorative gradients. No shadows on UI (the one product
+     drop-shadow is reserved for renders; this page has none).
+   - Alternate full-bleed light/dark tiles; color change is the divider.
+   ============================================================ */
+
+/* ---------- Design tokens ---------- */
+:root {
+  /* Colors */
+  --primary: #0066cc;            /* Action Blue — every interactive element */
+  --primary-focus: #0071e3;      /* Focus Blue — keyboard focus rings */
+  --primary-on-dark: #2997ff;    /* Sky Link Blue — links on dark surfaces */
+  --ink: #1d1d1f;
+  --body: #1d1d1f;
+  --body-on-dark: #ffffff;
+  --body-muted: #cccccc;
+  --ink-muted-80: #333333;
+  --ink-muted-48: #7a7a7a;
+  --divider-soft: #f0f0f0;
+  --hairline: #e0e0e0;
+  --canvas: #ffffff;
+  --canvas-parchment: #f5f5f7;
+  --surface-tile-1: #272729;
+  --surface-tile-3: #252527;
+  --surface-black: #000000;
+  --on-primary: #ffffff;
+  --on-dark: #ffffff;
+
+  /* Typography */
+  --font-display: "SF Pro Display", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-body: "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-lg: 18px;
+  --radius-pill: 9999px;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 17px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+  --space-section: 80px;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 44px; /* sticky global-nav height */
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--body);
+  background-color: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: var(--space-xs) 15px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  left: var(--space-xs);
+  top: var(--space-xs);
+}
+
+/* ---------- Global nav (44px, surface-black) ---------- */
+.global-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 44px;
+  background-color: var(--surface-black);
+  color: var(--on-dark);
+}
+
+.nav-inner {
+  position: relative;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+  color: var(--on-dark);
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-menu a {
+  display: inline-block;
+  padding: 0 2px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.12px;
+  color: var(--on-dark);
+}
+
+.nav-menu a:hover {
+  color: var(--body-muted);
+}
+
+.nav-menu a.is-active {
+  color: var(--primary-on-dark);
+}
+
+.nav-menu a:focus-visible {
+  outline: 2px solid var(--primary-on-dark);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  margin-left: -12px;
+}
+
+.nav-toggle-bar {
+  width: 16px;
+  height: 1px;
+  background-color: var(--on-dark);
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--primary-on-dark);
+  outline-offset: 2px;
+}
+
+/* ---------- Tiles & containers ---------- */
+.tile {
+  padding: var(--space-section) 0;
+}
+
+.tile-light {
+  background-color: var(--canvas);
+  color: var(--ink);
+}
+
+.tile-dark {
+  background-color: var(--surface-tile-1);
+  color: var(--on-dark);
+}
+
+.tile-dark-3 {
+  background-color: var(--surface-tile-3);
+  color: var(--on-dark);
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+.container-narrow {
+  max-width: 980px;
+}
+
+.container-wide {
+  max-width: 1440px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: 96px 0 112px;
+  text-align: center;
+}
+
+.hero-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+  color: var(--ink-muted-48);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 600;
+  line-height: 1.07;
+  letter-spacing: -0.28px;
+}
+
+.hero-tagline {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.19;
+  letter-spacing: 0.231px;
+  color: var(--ink-muted-80);
+}
+
+.hero-body {
+  max-width: 560px;
+  color: var(--ink-muted-80);
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-xs);
+}
+
+.hero-caption {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.12px;
+  color: var(--ink-muted-48);
+}
+
+/* ---------- Buttons (pill grammar) ---------- */
+.button-primary,
+.button-secondary-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.button-primary {
+  background-color: var(--primary);
+  color: var(--on-primary);
+}
+
+.button-primary:hover {
+  background-color: var(--primary-focus);
+}
+
+.button-secondary-pill {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.button-secondary-pill:hover {
+  background-color: rgba(0, 102, 204, 0.08);
+}
+
+.button-primary:active,
+.button-secondary-pill:active {
+  transform: scale(0.95);
+}
+
+.button-primary:focus-visible,
+.button-secondary-pill:focus-visible {
+  outline: 2px solid var(--primary-focus);
+  outline-offset: 3px;
+}
+
+/* ---------- Section heads ---------- */
+.section-head {
+  text-align: center;
+  margin-bottom: var(--space-xxl);
+}
+
+.display-title {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.tile-lead {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: 0.196px;
+  margin-top: var(--space-sm);
+}
+
+.tile-light .tile-lead {
+  color: var(--ink-muted-80);
+}
+
+.tile-dark .tile-lead,
+.tile-dark-3 .tile-lead {
+  color: var(--body-muted);
+}
+
+/* ---------- Skills — pill chips on dark tile ---------- */
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--on-dark);
+}
+
+/* ---------- Projects — white utility cards ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  align-items: stretch;
+}
+
+.utility-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background-color: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+}
+
+.card-eyebrow {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+  letter-spacing: -0.224px;
+  color: var(--ink-muted-48);
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.374px;
+  color: var(--ink);
+}
+
+.card-body {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--ink-muted-80);
+  flex: 1;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--primary);
+}
+
+.text-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.text-link:focus-visible {
+  outline: 2px solid var(--primary-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- Achievements — dark editorial band ---------- */
+.achievement-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  text-align: center;
+}
+
+.achievement-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: var(--on-dark);
+}
+
+.achievement-caption {
+  margin-top: var(--space-xs);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  color: var(--body-muted);
+}
+
+/* ---------- Footer (parchment, dense-link columns) ---------- */
+.footer {
+  background-color: var(--canvas-parchment);
+  color: var(--ink-muted-80);
+  padding-top: 64px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-xxl);
+}
+
+.footer-heading {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.29;
+  letter-spacing: -0.224px;
+  color: var(--ink);
+}
+
+.footer-caption {
+  max-width: 280px;
+  margin-top: var(--space-sm);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.12px;
+  color: var(--ink-muted-48);
+}
+
+.footer-links {
+  margin-top: var(--space-sm);
+}
+
+.footer-links a {
+  display: inline-block;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 2.41;
+  letter-spacing: 0;
+  color: var(--ink-muted-80);
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
+.footer-links a:focus-visible {
+  outline: 2px solid var(--primary-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) 0 var(--space-lg);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.12px;
+  color: var(--ink-muted-48);
+}
+
+/* ============================================================
+   Responsive — DESIGN.md breakpoints
+   1440 content lock · 1068 small desktop · 833 tablet switch
+   734 tablet portrait · 640 phone · 480 small phone
+   ============================================================ */
+
+/* Small desktop: hero drops to display-lg (40px) */
+@media (max-width: 1068px) {
+  .hero-title {
+    font-size: 40px;
+    letter-spacing: 0;
+  }
+}
+
+/* Tablet landscape switch: nav collapses to hamburger, logo centers,
+   utility grids go 2-column, footer columns stack */
+@media (max-width: 833px) {
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-xs) var(--space-lg) var(--space-md);
+    background-color: var(--surface-black);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .nav-menu a {
+    padding: 12px 0;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.47;
+    letter-spacing: -0.374px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Tablet portrait: tile padding tightens to 48px */
+@media (max-width: 734px) {
+  .tile {
+    padding: var(--space-xxl) 0;
+  }
+
+  .hero {
+    padding: 64px 0 80px;
+  }
+}
+
+/* Phone: single-column grids, hero drops to 34px */
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 34px;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chip-list {
+    gap: var(--space-xs);
+  }
+}
+
+/* Small phone: hero drops to 28px, single-column footer */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .button-primary,
+  .button-secondary-pill {
+    transition: none;
+  }
+}
